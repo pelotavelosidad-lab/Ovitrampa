@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Ovitrampa AI</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f5f7;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .tarjetas {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 20px;
+        }
+
+        .tarjeta {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .numero {
+            font-size: 40px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .imagen {
+            margin-top: 25px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .imagen img {
+            max-width: 100%;
+            max-height: 600px;
+            border-radius: 10px;
+        }
+
+        .sin-imagen {
+            padding: 80px 20px;
+            color: #777;
+        }
+
+        .estado {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>🦟 Ovitrampa AI</h1>
+
+    <p>
+        Sistema de monitoreo automático
+    </p>
+
+</header>
+
+
+<div class="contenedor">
+
+
+    <!-- DATOS -->
+
+    <div class="tarjetas">
+
+
+        <div class="tarjeta">
+
+            <div>
+                🥚 Huevos detectados
+            </div>
+
+            <div class="numero">
+                {{ resultado.huevos }}
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta">
+
+            <div>
+                🎯 Confianza IA
+            </div>
+
+            <div class="numero">
+                {{ resultado.confianza }}%
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta">
+
+            <div>
+                📊 Estado
+            </div>
+
+            <div class="estado">
+                {{ resultado.estado }}
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta">
+
+            <div>
+                🕐 Última captura
+            </div>
+
+            <p>
+                {{ resultado.fecha }}
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- IMAGEN -->
+
+    <div class="imagen">
+
+        <h2>
+            📷 Última imagen
+        </h2>
+
+
+        {% if ultima_imagen %}
+
+            <img
+                src="{{ url_for('images',
+                                filename=ultima_imagen) }}"
+                alt="Última imagen">
+
+        {% else %}
+
+            <div class="sin-imagen">
+
+                <h3>
+                    Esperando primera imagen...
+                </h3>
+
+                <p>
+                    Cuando el ESP32-S3 envíe una fotografía,
+                    aparecerá aquí.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</div>
+
+
+<!-- Actualizar automáticamente -->
+
+<script>
+
+    setTimeout(function() {
+
+        location.reload();
+
+    }, 10000);
+
+</script>
+
+
+</body>
+
+</html>
